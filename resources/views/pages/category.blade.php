@@ -15,6 +15,11 @@
   opacity: 1;
 }
 
+span img{
+  width:22px;
+  height:22px;
+}
+
     </style>
 
 @endsection
@@ -37,9 +42,6 @@
     <div class="row mt-2">
         <div class="col-12">
             <ul class="list-group">
-                <li class="list-group-item d-flex justify-content-between align-items-center">First item <span>Add</span></li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">Second item <span>Add</span></li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">Third item <span>Add</span></li>
             </ul>
         </div>
     </div>
@@ -84,6 +86,7 @@
 
 <script>
   jQuery(document).ready(function(){
+    getCategory();
     $(document).on("submit","#category_form",function(e){
       jQuery('.category_error').html("");
 
@@ -100,7 +103,9 @@
         processData:false,
         dataType:"JSON",
         success:function(resp){
+          $("#category_form")[0].reset();
           handleSubmitBtn(true)
+          getCategory();
         },
         error:function(err){
           handleSubmitBtn(true)
@@ -124,6 +129,32 @@
       })
     })
   })
+
+  
+  function getCategory(){
+    jQuery('.list-group').html("<div class='text-center'><div class='spinner-border spinner-border-sm'></div> Please Wait...</div>");
+    jQuery.ajax({
+        url: "{{route('get_category')}}",
+        method:"GET",
+        dataType:"JSON",
+        success:function(resp){
+          if(resp?.success && resp.data.length > 0){
+            let data = resp.data;
+            let html = "";
+            jQuery.each(data,function(key,value){
+              // <img src='{{asset('assets/icons/eye.png')}}' alt=''> |
+              html += "<li class='list-group-item d-flex justify-content-between align-items-center'>"+value['category']+"<span><strong><img src='{{asset('assets/icons/editing.png')}}' alt=''> | <img src='{{asset('assets/icons/delete.png')}}' alt=''></strong></span></li>";
+            })
+            jQuery('.list-group').html(html);
+          }else{
+            jQuery('.list-group').html("<div class='text-danger text-center'>No Category Found</div>");
+          }
+        },
+        error:function(err){
+          jQuery('.list-group').html("<div class='text-danger text-center'>No Category Found</div>");
+        }
+      })
+  }
 
 
   function handleSubmitBtn(isTrue = false){

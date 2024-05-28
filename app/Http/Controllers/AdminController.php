@@ -34,10 +34,14 @@ class AdminController extends Controller
         $category = Category::create([
             'category' => $request->category,
         ]);
-        return response()->json(['errors' => 'Unable to add category, Please try after sometimes'],400);
         if($category){
             return response()->json(['success' => 'Form submitted successfully!'],200);
         }
         return response()->json(['errors' => 'Unable to add category, Please try after sometimes'],400);
+    }
+
+    public function getCategory(){
+        $category = Category::all();
+        return response()->json(["success" => true,'message' => 'Category get successfully!','data' => $category],200);
     }
 }

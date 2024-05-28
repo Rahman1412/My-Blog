@@ -13,3 +13,4 @@ Route::get('/blogs',[AdminController::class,'allBlogs'])->name('blogs');
 Route::get('/category',[AdminController::class,'allCategory'])->name('category');
 
 Route::post('/add-category',[AdminController::class,'addCategory'])->name('add_category');
+Route::get('/get-category',[AdminController::class,'getCategory'])->name('get_category');

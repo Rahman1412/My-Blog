@@ -68,6 +68,7 @@ span img{
         <form method="post" action="{{route('add_category')}}" id="category_form">
           @csrf
             <div class="form-group">
+              <input type="hidden" name="id" value="0">
                 <input type="text" class="form-control" placeholder="Enter Category Name" name="category">
                 <label class="text-danger category_error"></label>
             </div>
@@ -104,6 +105,7 @@ span img{
         dataType:"JSON",
         success:function(resp){
           $("#category_form")[0].reset();
+          $('#myModal').modal('hide')
           handleSubmitBtn(true)
           getCategory();
         },
@@ -143,7 +145,7 @@ span img{
             let html = "";
             jQuery.each(data,function(key,value){
               // <img src='{{asset('assets/icons/eye.png')}}' alt=''> |
-              html += "<li class='list-group-item d-flex justify-content-between align-items-center'>"+value['category']+"<span><strong><img src='{{asset('assets/icons/editing.png')}}' alt=''> | <img src='{{asset('assets/icons/delete.png')}}' alt=''></strong></span></li>";
+              html += "<li class='list-group-item d-flex justify-content-between align-items-center'>"+value['category']+"<span><strong><img src='{{asset('assets/icons/editing.png')}}' alt='' data-id='"+value['id']+"' data-category='"+value['category']+"' onclick='editCategory(this)'> | <img src='{{asset('assets/icons/delete.png')}}' alt='' data-id='"+value['id']+"' onclick='deleteCategory(this)'></strong></span></li>";
             })
             jQuery('.list-group').html(html);
           }else{
@@ -165,6 +167,33 @@ span img{
       jQuery('.submit_btn').attr('type','button');
       jQuery('.submit_btn').html("<div class='spinner-border spinner-border-sm'></div>");
     }
+  }
+
+  function editCategory(element){
+    $('#myModal').modal('show')
+    console.log("ELEMENET>>>>>>>>>>>",element)
+    const id = $(element).data('id');
+    const category = $(element).data('category');
+    $("input[name='category']").val(category);
+    $("input[name='id']").val(id);
+  }
+
+  function deleteCategory(element){
+    const id = $(element).data('id');
+    jQuery.ajax({
+        url: "{{route('delete_category')}}",
+        method:"GET",
+        data:{
+          id:id
+        },
+        dataType:"JSON",
+        success:function(resp){
+          getCategory();
+        },
+        error:function(err){
+          alert("Unable to delete category, Please try after sometimes")
+        }
+      })
   }
 </script>
 

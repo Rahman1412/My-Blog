@@ -31,11 +31,20 @@ class AdminController extends Controller
             return response()->json(['errors' => $validator->errors()], 400);
         }
 
-        $category = Category::create([
-            'category' => $request->category,
-        ]);
+        if($request->id > 0){
+            $category = Category::find($request->id);
+            $category->category = $request->category;
+            $category->save();
+            $message = "Category updated successfully!";
+        }else{
+            $category = Category::create([
+                'category' => $request->category,
+            ]);
+            $message = "Category added successfully!";
+        }
+
         if($category){
-            return response()->json(['success' => 'Form submitted successfully!'],200);
+            return response()->json(['success' => $message],200);
         }
         return response()->json(['errors' => 'Unable to add category, Please try after sometimes'],400);
     }
@@ -43,5 +52,11 @@ class AdminController extends Controller
     public function getCategory(){
         $category = Category::all();
         return response()->json(["success" => true,'message' => 'Category get successfully!','data' => $category],200);
+    }
+
+    public function deleteCategory(Request $request){
+        $category = Category::find($request->id);
+        $category->delete();
+        return response()->json(['success' => 'Category deleted successfully!'],200);
     }
 }

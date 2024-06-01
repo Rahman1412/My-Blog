@@ -55,6 +55,10 @@
         <a class="nav-link" href="{{route('blogs')}}">Blogs</a>
       </li>
 
+      <li class="nav-item {{request()->is('new-blog') ? 'active' : '' }}">
+        <a class="nav-link" href="{{route('new_blog')}}">New Blog</a>
+      </li>
+
       <li class="nav-item {{ request()->is('category') ? 'active' : '' }}">
         <a class="nav-link" href="{{route('category')}}">Category</a>
       </li>

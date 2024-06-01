@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Category;
+use App\Models\Blogs;
 
 class AdminController extends Controller
 {
@@ -15,7 +16,8 @@ class AdminController extends Controller
     }
 
     public function allBlogs(){
-        return view('pages.all-blogs');
+        $blogs = Blogs::all();
+        return view('pages.all-blogs',compact('blogs'));
     }
 
     public function allCategory(){

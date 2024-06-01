@@ -7,6 +7,7 @@
     <title>Fixed Responsive Sidebar</title>
     <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/header.css')}}">
+
 </head>
 <body>
 
@@ -20,7 +21,7 @@
 
 <script src="{{asset('assets/js/jquery-3.5.1.slim.min.js')}}"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
+<script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
 @yield('script')
 
 @include('component.footer')

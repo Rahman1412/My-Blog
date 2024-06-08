@@ -22,5 +22,7 @@ Route::get('/delete-category',[AdminController::class,'deleteCategory'])->name('
 
 Route::get('/new-blog',[BlogController::class,'newBlog'])->name('new_blog');
 Route::post('/saveBlog',[BlogController::class,'saveBlog'])->name('saveBlog');
+Route::get('/getBlogs',[BlogController::class,'getBlogs'])->name('getBlogs');
+Route::get('/deleteBlog',[BlogController::class,'deleteBlog'])->name('deleteBlog');
 
 Route::post('/upload',[EditorController::class,'uploadMedia'])->name('ckeditor.upload');

@@ -17,7 +17,8 @@ class AdminController extends Controller
 
     public function allBlogs(){
         $blogs = Blogs::all();
-        return view('pages.all-blogs',compact('blogs'));
+        $category = Category::all();
+        return view('pages.all-blogs',compact('blogs','category'));
     }
 
     public function allCategory(){

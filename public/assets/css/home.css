@@ -1,0 +1,60 @@
+.trending h3{
+    font-weight: 600;
+}
+
+.trending{
+    border: 2px solid #8a8f9b;
+    padding: 16px;
+}
+
+
+.trending h3:after {
+    content: "";
+    display: block;
+    border-bottom: 2px solid #8a8f9b;
+    padding-bottom: 10px !important;
+}
+
+.card-title{
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.trending-title{
+    font-weight: 600;
+    font-size: 14px;
+}
+
+
+.trending-items{
+    height:400px;
+    overflow-y: scroll;
+}
+
+.badge{
+    margin-top: 5px;
+    margin-left: 3px;
+}
+
+.badge-dark{
+    background-color: #8a8f9b;
+}
+
+.trending-image img{
+    height: 110px;
+}
+
+.trending{
+    background-color: #f3f4f6;
+    color:#8a8f9b;
+}
+
+@media (max-width: 992px) {
+    .trending-section{
+        margin-top: 15px;
+    }
+    .carousel-item img{
+        height: 200px;
+    }
+}
+

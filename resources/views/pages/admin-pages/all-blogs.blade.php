@@ -27,8 +27,7 @@
             <input type="text" class="form-control" placeholder="Search">
         </div>
         <div class="col-12 col-sm-3 col-md-3">
-            <!-- <a class="btn btn-dark" href="{{route('new_blog')}}">New Blog</a> -->
-            <button type="button" class="btn btn-dark mt-1" data-toggle="modal" data-target="#myNewBlogForm">
+            <button type="button" class="btn btn-dark mt-1" onclick="resetForm()">
             New Blog
         </button>
         </div>
@@ -39,7 +38,7 @@
             
         </div>
 
-        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 paginateContent">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 paginateContent mt-2">
             
         </div>
     </div>
@@ -64,6 +63,7 @@
         </div>
         <form method="post" action="{{route('saveBlog')}}" id="newBlogForm" enctype="multipart/form-data">
           @csrf
+          <input type="hidden" name="id" value="0">
             <div class="form-group">
                 <label for="title">Title</label>
                 <input type="text" class="form-control" placeholder="Enter Title" name="title" onkeyup="getSlug(this)">
@@ -77,13 +77,14 @@
             </div>
 
             <div class="form-group">
-                <label for="category">Category</label>
-                <select class="form-control" name="category">
-                    <option value="0">Select Category</option>
-                    @foreach($category as $item)
-                    <option value="{{$item->id}}">{{$item->category}}</option>
+                <label for="tags">Tags</label>
+                <div>
+                <select name="tags[]" multiple="multiple" class="tags_select_box">
+                    @foreach($tags as $item)
+                    <option value="{{$item->name}}">{{$item->name}}</option>
                     @endforeach
                 </select>
+                </div>
             </div>
 
             <div class="form-group">
@@ -123,10 +124,10 @@
 @section('script')
 
 <script>
-
+    let editor;
     jQuery(document).ready(function(){
+        initlialize()
         getAllBlogs();
-        let editor;
         let data;
         ClassicEditor.create( document.querySelector( '#editor' ),{
             ckfinder : {
@@ -134,8 +135,6 @@
             }
         } ).then(newEditor => {
             editor = newEditor;
-        // editor.setData( '<p>Some text.</p>' );
-        
         })
         .catch( error => {
         } );
@@ -190,8 +189,49 @@
             })
         })
 
+
+
+        
+
     });
 
+    function resetForm(){
+        jQuery("#myNewBlogForm").modal("show");
+        jQuery('#newBlogForm')[0].reset();
+        const output = document.getElementById('previewImg');
+        output.src = "";
+        jQuery('.preview-container').attr("style","display:none");
+        editor.setData("");
+        jQuery("select[name='tags[]']").val(null).trigger('change');
+    }
+
+
+    function editBlog(element){
+        jQuery('#myNewBlogForm').modal('show');
+        const id = jQuery(element).data('id')
+        jQuery("input[name='id']").val(id);
+        jQuery.ajax({
+            url: "{{route('viewBlog')}}?id="+id,
+            method:"GET",
+            dataType:"JSON",
+            success:function(resp){
+                if(resp.success){
+                    var data = resp.data;
+                   
+                    jQuery("input[name='title']").val(data.title);
+                    jQuery("input[name='slug']").val(data.slug);
+                    jQuery("select[name='tags[]']").val(data.tags).trigger('change');
+                    jQuery("select[name='status']").val(data.status);
+                    editor.setData(data.short_desc)
+                    if(data.thumbnail){
+                        jQuery('.preview-container').attr("style","display:block");
+                        const output = document.getElementById('previewImg');
+                        output.src = data.thumbnail;
+                    }
+                }
+            }
+        })
+    }
 
     function getAllBlogs(element){
         const page = element ? jQuery(element).data("page") : 1;
@@ -225,22 +265,35 @@
                         })
                         if(blogs.length > 0){
                             jQuery.each(blogs,function(key,value){
-                            const thumbnail = value['thumbnail'] ? value['thumbnail'] : "https://via.placeholder.com/150";
-                            blogHtml += "<div class='card mb-3'>\
-                                    <div class='row no-gutters'>\
-                                        <div class='col-md-4'>\
-                                            <img src='"+thumbnail+"' class='card-img' alt='...'>\
-                                        </div>\
-                                        <div class='col-md-8'>\
-                                            <div class='card-body'>\
-                                                <h5 class='card-title'>"+value['title']+"</h5>\
-                                                <p class='card-text'>"+value['short_desc']+"</p>\
-                                                <span><strong><img src='{{asset('assets/icons/editing.png')}}' alt='Edit' style='width:22px;height:22px;background-color:#ffffff;'> | <img data-id='"+value['id']+"' src='{{asset('assets/icons/delete.png')}}' alt='Edit' style='width:22px;height:22px;background-color:#ffffff;'onclick='deleteBlog(this)'></strong></span>\
+                                let  id = value['id'];
+                                var newBlogUrl = '{{ route("new_blog", ["id" => ":id"]) }}';
+                                newBlogUrl = newBlogUrl.replace(':id', id);
+                                let tags = ""
+                                if(value["tags"]){
+                                    tags += " <p class='card-text'>";
+                                    jQuery.each(value["tags"],function(key1,value1){
+                                        tags += "<span class='badge badge-dark'>"+value1+"</span>";
+                                    })
+                                    tags += "</p>";
+                                }
+
+                                const thumbnail = value['thumbnail'] ? value['thumbnail'] : "https://via.placeholder.com/150";
+                                blogHtml += "<div class='card mb-3'>\
+                                        <div class='row no-gutters'>\
+                                            <div class='col-md-4'>\
+                                                <img src='"+thumbnail+"' class='card-img' alt='...'>\
+                                            </div>\
+                                            <div class='col-md-8'>\
+                                                <div class='card-body'>\
+                                                    <h5 class='card-title'>"+value['title']+"</h5>\
+                                                    <p class='card-text'>"+value['short_desc'].substr(0,300)+"</p>\
+                                                    "+tags+"\
+                                                    <span><strong><a href='"+newBlogUrl+"' style='text-decoration:none;'><img src='{{asset('assets/icons/eye.png')}}' alt='View' style='width:22px;height:22px;background-color:#ffffff;cursor:pointer;'></a> | <img src='{{asset('assets/icons/editing.png')}}' alt='Edit' style='width:22px;height:22px;background-color:#ffffff;cursor:pointer;' data-id='"+value['id']+"' onclick='editBlog(this)'> | <img data-id='"+value['id']+"' src='{{asset('assets/icons/delete.png')}}' alt='Edit' style='width:22px;height:22px;background-color:#ffffff;cursor:pointer;'onclick='deleteBlog(this)'></strong></span>\
+                                                </div>\
                                             </div>\
                                         </div>\
-                                    </div>\
-                                </div>";
-                            });
+                                    </div>";
+                                });
                             jQuery(".paginateContent").html("<nav aria-label='Pagination'>\
                                 <ul class='pagination justify-content-center'>"+pagination+"</ul>\
                             </nav>");
@@ -287,21 +340,6 @@
         }
     }
 
-    function getSlug(element){
-        const title = jQuery(element).val();
-        const slug = stringToSlug(title);
-        jQuery("input[name='slug']").val(slug);
-    }
-
-    function stringToSlug(str) {
-        str = str.trim().toLowerCase(); // Convert to lowercase and trim whitespace
-        str = str.normalize("NFD").replace(/[\u0300-\u036f]/g, ""); // Remove diacritics
-        str = str.replace(/[^a-z0-9 -]/g, '') // Remove invalid characters
-                  .replace(/\s+/g, '-') // Replace whitespace with hyphens
-                  .replace(/-+/g, '-'); // Collapse multiple hyphens
-        return str;
-    }
-
     function previewImage(event) {
         const reader = new FileReader();
         reader.onload = function(){
@@ -310,6 +348,10 @@
             output.src = reader.result;
         }
         reader.readAsDataURL(event.target.files[0]);
+    }
+
+    function initlialize(){
+        jQuery(".tags_select_box").select2();
     }
 
 </script>

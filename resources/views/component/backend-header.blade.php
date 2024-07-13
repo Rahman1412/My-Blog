@@ -1,8 +1,9 @@
 
-
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="d-flex">
-        <a class="navbar-brand" href="#">Navbar</a>
+        <a class="navbar-brand" href="{{url('/')}}">
+          <img src="{{asset('logo/logo.png')}}" alt="Logo">
+        </a>
         <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -10,15 +11,23 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item {{ request()->is('dashboard') ? 'active' : '' }}">
+      <li class="nav-item {{ request()->is('admin/dashboard') || request()->is('admin') ? 'active' : '' }}">
         <a class="nav-link" href="{{route('admin-dashboard')}}">Dashboard</a>
       </li>
-      <li class="nav-item {{ request()->is('blogs') ? 'active' : '' }}">
+      <li class="nav-item {{ request()->is('admin/blogs') ? 'active' : '' }}">
         <a class="nav-link" href="{{route('blogs')}}">Blogs</a>
+</li>
+
+      <li class="nav-item {{ request()->is('admin/menus') ? 'active' : '' }}">
+        <a class="nav-link" href="{{route('menus')}}">Menus</a>
       </li>
 
-      <li class="nav-item {{ request()->is('category') ? 'active' : '' }}">
-        <a class="nav-link" href="{{route('category')}}">Category</a>
+      <li class="nav-item {{ request()->is('admin/all-technologies') ? 'active' : '' }}">
+        <a class="nav-link" href="{{route('all-technologies')}}">Technologies</a>
+      </li>
+
+      <li class="nav-item {{ request()->is('admin/page-settingss') ? 'active' : '' }}">
+        <a class="nav-link" href="{{route('page-settings')}}">Page Settings</a>
       </li>
       
       <!-- <li class="nav-item dropdown">
@@ -45,22 +54,29 @@
 
 <!-- Sidebar -->
 <div class="sidebar text-center">
-    <img class="mt-3" src="https://cc-prod.scene7.com/is/image/CCProdAuthor/mascot-logo-design_P1_900x420?$pjpeg$&jpegSize=200&wid=900">
+  <a href="{{url('/')}}">
+  <img class="mt-3" src="{{asset('logo/logo.png')}}" alt="Logo">
+  </a>
+    
     <ul class="navbar-nav sidebar-nav mt-2">
-      <li class="nav-item {{ request()->is('dashboard') ? 'active' : '' }}">
+      <li class="nav-item {{ request()->is('admin/dashboard') || request()->is('admin') ? 'active' : '' }}">
         <a class="nav-link" href="{{route('admin-dashboard')}}">Dashboard</a>
       </li>
 
-      <li class="nav-item {{ request()->is('blogs') ? 'active' : '' }}">
+      <li class="nav-item {{ request()->is('admin/blogs') ? 'active' : '' }}">
         <a class="nav-link" href="{{route('blogs')}}">Blogs</a>
       </li>
 
-      <li class="nav-item {{request()->is('new-blog') ? 'active' : '' }}">
-        <a class="nav-link" href="{{route('new_blog')}}">New Blog</a>
+      <li class="nav-item {{ request()->is('admin/menus') ? 'active' : '' }}">
+        <a class="nav-link" href="{{route('menus')}}">Menus</a>
       </li>
 
-      <li class="nav-item {{ request()->is('category') ? 'active' : '' }}">
-        <a class="nav-link" href="{{route('category')}}">Category</a>
+      <li class="nav-item {{ request()->is('admin/all-technologies') ? 'active' : '' }}">
+        <a class="nav-link" href="{{route('all-technologies')}}">Technologies</a>
+      </li>
+
+      <li class="nav-item {{ request()->is('admin/page-settings') ? 'active' : '' }}">
+        <a class="nav-link" href="{{route('page-settings')}}">Page Settings</a>
       </li>
 
       <!-- <li class="nav-item">

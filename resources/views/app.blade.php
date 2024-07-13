@@ -6,25 +6,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fixed Responsive Sidebar</title>
     <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/css/header.css')}}">
-
+    <script src="{{asset('assets/js/sweetalert2.js')}}"></script>
+    <script src="{{asset('assets/js/jquery-3.5.1.slim.min.js')}}"></script>
+    @if(request()->route()->getPrefix())
+    <link rel="stylesheet" href="{{asset('assets/css/backend-header.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/css/select2.min.css')}}">
+    
+    @else
+    <link rel="stylesheet" href="{{asset('assets/css/frontend-header.css')}}">
+    <script src="{{asset('assets/js/popper.min.js')}}"></script>
+  <script src="{{asset('assets/js/bootstrap.bundle.min.js')}}"></script>
+    @endif
+    
+  
+    
 </head>
 <body>
 
 @yield('style')
 
-@include('component.header')
+
+@if(request()->route()->getPrefix())
+    @include('component.backend-header')
+@else
+    @include('component.frontend-header')
+@endif
 
 
 @yield('content')
 
 
-<script src="{{asset('assets/js/jquery-3.5.1.slim.min.js')}}"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
+
+<script src="{{asset('assets/js/jquery.js')}}"></script>
 @yield('script')
 
-@include('component.footer')
+
+@if(request()->route()->getPrefix())
+    <script src="{{asset('assets/js/ckeditor.js')}}"></script>
+    <script src="{{asset('assets/js/select2.min.js')}}"></script>
+    @include('component.footer')
+@else
+    @include('component.frontend-footer')
+@endif
+
 
 
 

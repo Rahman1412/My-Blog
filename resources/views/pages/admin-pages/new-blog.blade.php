@@ -6,6 +6,13 @@
     .form-group label{
         font-weight:bold;
     }
+    .btn-dark{
+        background:black;
+        border-radius:0px;
+    }
+    .toast{
+        z-index:1000;
+    }
 </style>
 
 @endsection
@@ -14,9 +21,21 @@
 
 
 <div class="content">
+
+<div class="toast" style="position: absolute; top: 5px; right: 5px;" data-delay="2000">
+    <div class="toast-header bg-success text-light">
+      <strong class="mr-auto">Success</strong>
+      <button type="button" class="ml-2 mb-1 close text-light" data-dismiss="toast" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="toast-body bg-success text-light">
+    </div>
+  </div>
+
     <div class="d-flex">
         <div class="mr-3">
-            <h2>New Blog</h2>
+            <h2>{{$blog->title}}</h2>
         </div>
         <div class="ml-auto">
             <a href="{{route('blogs')}}" class="btn btn-dark mt-1">
@@ -28,20 +47,11 @@
         <div class="card-body">
             <form action="" id="newBlogForm">
                 @csrf
+                <input type="hidden" name="id" value="0">
+                <input type="hidden" name="blog_id" value="{{$blog['id']}}">
                 <div class="form-group">
                     <label for="title">Title</label>
-                    <input type="text" name="title" class="form-control">
-                </div>
-
-                <div class="form-group">
-                
-                    <label for="category">Category</label>
-                    <select class="form-control" name="category">
-                        <option value="0">Select Category</option>
-                        @foreach($category as $item)
-                            <option value="{{$item['id']}}">{{$item['category']}}</option>
-                        @endforeach
-                    </select>
+                    <input type="text" name="title" class="form-control" placeholder="Enter Title">
                 </div>
 
                 <div class="form-group">
@@ -69,9 +79,9 @@
 
 @section('script')
 <script>
-
+    let editor;
     jQuery(document).ready(function(){
-        let editor;
+        getMetaData();
         let data;
         ClassicEditor.create( document.querySelector( '#editor' ),{
             ckfinder : {
@@ -92,14 +102,17 @@
             const content = editor.getData();
             formData.append("content",content);
             jQuery.ajax({
-                url: "{{route('saveBlog')}}",
+                url: "{{route('saveMetaData')}}",
                 method:"POST",
                 data:formData,
                 contentType:false,
                 processData:false,
                 dataType:"JSON",
                 success:function(resp){
-
+                    if(resp.success){
+                        jQuery('.toast-body').html(resp.message);
+                        jQuery(".toast").toast('show');
+                    }
                 },
                 error:function(err){
 
@@ -107,6 +120,31 @@
             })
         })
     })
+
+    function getMetaData(){
+        const id = jQuery("input[name='blog_id']").val();
+        console.log("ID >>>>",id);
+        jQuery.ajax({
+            url: "{{route('getMetaData')}}",
+            method:"GET",
+            data:{
+                id:id
+            },
+            dataType:"JSON",
+            success:function(resp){
+                if(resp.success){
+                    const data = resp.data;
+                    console.log(data);
+                    if(data.meta){
+                        jQuery("input[name='id']").val(data.meta.id);
+                        jQuery("select[name='status']").val(data.meta.status);
+                        jQuery("input[name='title']").val(data.meta.title);
+                        editor.setData(data.meta.description);
+                    }
+                }
+            }
+        })
+    }
 
 </script>
 

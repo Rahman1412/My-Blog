@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('blogs', function (Blueprint $table) {
+        Schema::create('technologies', function (Blueprint $table) {
             $table->id();
-            $table->longText('title');
-            $table->longText('slug');
-            $table->longText('short_desc');
-            $table->longText('tags')->nullable();
-            $table->text('thumbnail')->nullable();
-            $table->string('status')->default('private');
+            $table->string('name', length: 255);
+            $table->string('slug', length: 255);
+            $table->integer('status')->default(0)->comment("0 = Private , 1 = Public");
+            $table->text('logo');
             $table->timestamps();
         });
     }
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('blogs');
+        Schema::dropIfExists('technologies');
     }
 };

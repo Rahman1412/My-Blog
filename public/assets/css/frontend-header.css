@@ -1,0 +1,82 @@
+body{
+    font-family: "Source Sans 3", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+  }
+    .sticky-sidebar {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0;
+    }
+
+    .card{
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      border-radius: 0px;
+    }
+
+    .navbar{
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+
+    .card-body{
+      padding-bottom: 0px;
+    }
+
+    .card img{
+        width: 100%;
+        height: 200px;
+    }
+
+    .btn-dark{
+      border-radius: 0px;
+    }
+
+    .nav-link.nav-link{
+      font-weight: bold;
+      font-size: 15px;
+    }
+
+    .nav-item{
+      width:max-content;
+      padding-left: 10px;
+      padding-right: 10px;
+      margin-left: 15px;
+    }
+
+    .btn-dark{
+      background: black;
+    }
+
+    .nav-item.active{
+      background: black;
+    }
+    .nav-item.active a{
+      color: white !important;
+    }
+
+    .copyright p::before {
+      content: "";
+      display: block;
+      border-top: 2px solid #fff;
+      padding-top: 10px !important;
+      margin: 0px 20px 0px 20px;
+  }
+  
+  .copyright p{
+      text-align: center;
+      width: 100%;
+      font-size: small;
+      font-weight: bold;
+      color: #fff;
+  }
+
+    @media (max-width: 992px) {
+      .card-body{
+        padding-bottom: 15px;
+      }
+
+      .nav-item.active{
+        background: black;
+        width: 100%;
+      }
+    }

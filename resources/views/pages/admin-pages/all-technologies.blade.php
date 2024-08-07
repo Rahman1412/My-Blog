@@ -50,13 +50,17 @@ label{
 }
 
 .logo{
-  margin-left:40px;
-  width:150px;
-  height:150px;
+  object-fit:cover;
+  width:100%;
+  height:140px;
 }
 
 .card{
   border-radius:0px;
+}
+
+#previewImg{
+  object-fit: cover;
 }
     </style>
 
@@ -71,7 +75,7 @@ label{
             <h2>Technologies</h2>
         </div>
         <div class="ml-auto">
-        <button type="button" class="btn btn-dark mt-1" data-toggle="modal" data-target="#myModal" onclick="openModel(this)">
+        <button type="button" class="btn btn-dark mt-1" onclick="openModel(this)">
             New Technologies
         </button>
         </div>
@@ -225,7 +229,9 @@ label{
   }
 
     function openModel(element){
+      jQuery("#myModal").modal("show");
         jQuery(".modal-title").html("Add Technology");
+        jQuery("input[name='id']").val(0);
         removeImage();
         jQuery("#technology_form")[0].reset();
     }

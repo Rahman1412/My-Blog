@@ -1,7 +1,7 @@
 <footer>
 
 
-<div class="row bg-dark justify-content-center copyright">
+<div class="row justify-content-center copyright">
    <p>&#169; 2024 - {{date('Y')}} Copyright - Manak Academy</p>
 </div>
 

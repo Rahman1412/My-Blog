@@ -16,7 +16,8 @@ class SettingController extends Controller
     public function addSetting(Request $request){
         $validator = Validator::make($request->all(),[
             "title" =>  "required",
-            "slug"  =>  "required"
+            "slug"  =>  "required",
+            "content" => "required"
         ]);
 
         if ($validator->fails()) {

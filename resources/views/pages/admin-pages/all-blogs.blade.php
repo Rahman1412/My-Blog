@@ -34,12 +34,12 @@
     </div>
 
     <div class="row mt-3">
-        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 blogContainer">
+        <div class="col-12 blogContainer">
             
         </div>
 
-        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 paginateContent mt-2">
-            
+        <div class="col-12 paginateContent mt-2">
+
         </div>
     </div>
     
@@ -197,6 +197,7 @@
 
     function resetForm(){
         jQuery("#myNewBlogForm").modal("show");
+        jQuery("input[name='id']").val(0);
         jQuery('#newBlogForm')[0].reset();
         const output = document.getElementById('previewImg');
         output.src = "";
@@ -286,7 +287,9 @@
                                             <div class='col-md-8'>\
                                                 <div class='card-body'>\
                                                     <h5 class='card-title'>"+value['title']+"</h5>\
-                                                    <p class='card-text'>"+value['short_desc'].substr(0,300)+"</p>\
+                                                    <div class='short-desc'>\
+                                                    "+value['short_desc']+"\
+                                                    </div>\
                                                     "+tags+"\
                                                     <span><strong><a href='"+newBlogUrl+"' style='text-decoration:none;'><img src='{{asset('assets/icons/eye.png')}}' alt='View' style='width:22px;height:22px;background-color:#ffffff;cursor:pointer;'></a> | <img src='{{asset('assets/icons/editing.png')}}' alt='Edit' style='width:22px;height:22px;background-color:#ffffff;cursor:pointer;' data-id='"+value['id']+"' onclick='editBlog(this)'> | <img data-id='"+value['id']+"' src='{{asset('assets/icons/delete.png')}}' alt='Edit' style='width:22px;height:22px;background-color:#ffffff;cursor:pointer;'onclick='deleteBlog(this)'></strong></span>\
                                                 </div>\

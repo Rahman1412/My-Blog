@@ -48,6 +48,8 @@ Route::prefix('admin')->group(function () {
 Route::get('/',[FrontEndController::class,'viewHome']);
 Route::get('/home',[FrontEndController::class,'viewHome']);
 Route::get('/about-us',[FrontEndController::class,'viewAboutUs']);
+Route::get('/contact-us',[FrontEndController::class,'viewContactUs']);
+Route::get("/blog/{id}/{slug}",[FrontEndController::class,'viewBlog']);
 
 
 

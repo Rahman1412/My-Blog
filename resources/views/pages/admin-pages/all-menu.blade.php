@@ -38,7 +38,7 @@
             <h2>Menus</h2>
         </div>
         <div class="ml-auto">
-        <button type="button" class="btn btn-dark mt-1" data-toggle="modal" data-target="#myModal">
+        <button type="button" class="btn btn-dark mt-1" onclick="openModal(this)">
             New Menu
         </button>
         </div>
@@ -142,6 +142,14 @@
             })
         });
     });
+
+    function openModal(element){
+        jQuery("#myModal").modal("show");
+        jQuery("#menuForm")[0].reset();
+        jQuery("input[name='id']").val(0);
+    }
+
+
 
     function getMenus(){
         jQuery('.list-group').html("<div class='text-center'><div class='spinner-border spinner-border-sm'></div> Please wait...</div>");

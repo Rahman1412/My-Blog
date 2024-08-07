@@ -2,9 +2,13 @@
     background-color: #f6f6f6;
 }
 
+.card{
+    height: 250px;
+}
+
 .card img{
     width: 100%;
-    height: 200px;
+    height: 250px;
     background-color: #e2dfdf;
 }
 
@@ -28,6 +32,11 @@
     border-radius: 0px;
 }
 
+.badge{
+    padding: 5px;
+    margin-right: 5px;
+}
+
 .select2.select2-container {
     display: block;
 }
@@ -38,4 +47,13 @@
     .header-advertisement{
         display: none;
     }
+}
+
+.short-desc{
+    display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
 }

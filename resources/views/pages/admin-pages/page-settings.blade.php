@@ -80,6 +80,7 @@
             <div class="form-group">
                 <label for="content">Content</label>
                 <div id="editor"></div>
+                <span class="text-danger content_error"></span>
             </div>
             <button class="btn btn-dark submit_btn" type="submit">Submit</button>
         </form>

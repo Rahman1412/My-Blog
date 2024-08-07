@@ -11,7 +11,7 @@
 <div class="container-fluid">
 
       <div class="row p-3">
-        <div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
         <div id="demo" class="carousel slide" data-ride="carousel">
           <ul class="carousel-indicators">
             <li data-target="#demo" data-slide-to="0" class="active"></li>
@@ -49,7 +49,7 @@
           </a>
         </div>
         </div>
-          <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 trending-section">
+          <!-- <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 trending-section">
             <div class="trending">
               <h3>Trending Blogs</h3>
             <div class="trending-items">
@@ -153,232 +153,38 @@
 
 
             </div>
-          </div>
+          </div> -->
       </div>
   
         <div class="row p-3">
            <div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+            @foreach($blogs as $item)
             <div class="card mb-3">
                 <div class="row no-gutters">
                   <div class="col-md-4">
                     <!-- Card Image -->
-                    <img src="https://via.placeholder.com/150" class="card-img" alt="...">
+                    <img src="{{$item->thumbnail}}" class="card-img" alt="...">
                   </div>
                   <div class="col-md-8">
                     <div class="card-body">
                       <!-- Card Title -->
-                      <h5 class="card-title">Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur, nulla.</h5>
+                      <h5 class="card-title">{{$item->title}}</h5>
                       <!-- Card Content -->
-                      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                       <div class="short-desc">
+                       {!! $item->short_desc !!}
+                       </div>
+                      
                       <!-- Optional Button -->
-                      <a href="blog.html" class="btn btn-dark">Read More</a>
+                      <a href="{{url('/blog')}}/{{$item->id}}/{{$item->slug}}" class="btn btn-dark mt-1">Read More</a>
                     </div>
                   </div>
                 </div>
               </div>
-
-              <div class="card mb-3">
-                <div class="row no-gutters">
-                  <div class="col-md-4">
-                    <!-- Card Image -->
-                    <img src="https://via.placeholder.com/150" class="card-img" alt="...">
-                  </div>
-                  <div class="col-md-8">
-                    <div class="card-body">
-                      <!-- Card Title -->
-                      <h5 class="card-title">Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur, nulla.</h5>
-                      <!-- Card Content -->
-                      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                      <!-- Optional Button -->
-                      <a href="blog.html" class="btn btn-dark">Read More</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="card mb-3">
-                <div class="row no-gutters">
-                  <div class="col-md-4">
-                    <!-- Card Image -->
-                    <img src="https://via.placeholder.com/150" class="card-img" alt="...">
-                  </div>
-                  <div class="col-md-8">
-                    <div class="card-body">
-                      <!-- Card Title -->
-                      <h5 class="card-title">Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur, nulla.</h5>
-                      <!-- Card Content -->
-                      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                      <!-- Optional Button -->
-                      <a href="blog.html" class="btn btn-dark">Read More</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-
-              <div class="card mb-3">
-                <div class="row no-gutters">
-                  <div class="col-md-4">
-                    <!-- Card Image -->
-                    <img src="https://via.placeholder.com/150" class="card-img" alt="...">
-                  </div>
-                  <div class="col-md-8">
-                    <div class="card-body">
-                      <!-- Card Title -->
-                      <h5 class="card-title">Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur, nulla.</h5>
-                      <!-- Card Content -->
-                      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                      <!-- Optional Button -->
-                      <a href="blog.html" class="btn btn-dark">Read More</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-
-              <div class="card mb-3">
-                <div class="row no-gutters">
-                  <div class="col-md-4">
-                    <!-- Card Image -->
-                    <img src="https://via.placeholder.com/150" class="card-img" alt="...">
-                  </div>
-                  <div class="col-md-8">
-                    <div class="card-body">
-                      <!-- Card Title -->
-                      <h5 class="card-title">Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur, nulla.</h5>
-                      <!-- Card Content -->
-                      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                      <!-- Optional Button -->
-                      <a href="blog.html" class="btn btn-dark">Read More</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-
-              <div class="card mb-3">
-                <div class="row no-gutters">
-                  <div class="col-md-4">
-                    <!-- Card Image -->
-                    <img src="https://via.placeholder.com/150" class="card-img" alt="...">
-                  </div>
-                  <div class="col-md-8">
-                    <div class="card-body">
-                      <!-- Card Title -->
-                      <h5 class="card-title">Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur, nulla.</h5>
-                      <!-- Card Content -->
-                      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                      <!-- Optional Button -->
-                      <a href="blog.html" class="btn btn-dark">Read More</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-
-              <div class="card mb-3">
-                <div class="row no-gutters">
-                  <div class="col-md-4">
-                    <!-- Card Image -->
-                    <img src="https://via.placeholder.com/150" class="card-img" alt="...">
-                  </div>
-                  <div class="col-md-8">
-                    <div class="card-body">
-                      <!-- Card Title -->
-                      <h5 class="card-title">Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur, nulla.</h5>
-                      <!-- Card Content -->
-                      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                      <!-- Optional Button -->
-                      <a href="blog.html" class="btn btn-dark">Read More</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-
-              <div class="card mb-3">
-                <div class="row no-gutters">
-                  <div class="col-md-4">
-                    <!-- Card Image -->
-                    <img src="https://via.placeholder.com/150" class="card-img" alt="...">
-                  </div>
-                  <div class="col-md-8">
-                    <div class="card-body">
-                      <!-- Card Title -->
-                      <h5 class="card-title">Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur, nulla.</h5>
-                      <!-- Card Content -->
-                      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                      <!-- Optional Button -->
-                      <a href="blog.html" class="btn btn-dark">Read More</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-
-              <div class="card mb-3">
-                <div class="row no-gutters">
-                  <div class="col-md-4">
-                    <!-- Card Image -->
-                    <img src="https://via.placeholder.com/150" class="card-img" alt="...">
-                  </div>
-                  <div class="col-md-8">
-                    <div class="card-body">
-                      <!-- Card Title -->
-                      <h5 class="card-title">Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur, nulla.</h5>
-                      <!-- Card Content -->
-                      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                      <!-- Optional Button -->
-                      <a href="blog.html" class="btn btn-dark">Read More</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-
-              <div class="card mb-3">
-                <div class="row no-gutters">
-                  <div class="col-md-4">
-                    <!-- Card Image -->
-                    <img src="https://via.placeholder.com/150" class="card-img" alt="...">
-                  </div>
-                  <div class="col-md-8">
-                    <div class="card-body">
-                      <!-- Card Title -->
-                      <h5 class="card-title">Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur, nulla.</h5>
-                      <!-- Card Content -->
-                      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                      <!-- Optional Button -->
-                      <a href="blog.html" class="btn btn-dark">Read More</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-
-              <div class="card mb-3">
-                <div class="row no-gutters">
-                  <div class="col-md-4">
-                    <!-- Card Image -->
-                    <img src="https://via.placeholder.com/150" class="card-img" alt="...">
-                  </div>
-                  <div class="col-md-8">
-                    <div class="card-body">
-                      <!-- Card Title -->
-                      <h5 class="card-title">Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur, nulla.</h5>
-                      <!-- Card Content -->
-                      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                      <!-- Optional Button -->
-                      <a href="blog.html" class="btn btn-dark">Read More</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              @endforeach
               
            </div>
             <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 side-container">
                 <div>
-
                 </div>
                 <div class="sticky-sidebar">
                     <img id="sticky-img" src="https://picsum.photos/id/237/200/300" alt="Advertisement">

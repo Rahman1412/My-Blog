@@ -16,10 +16,10 @@
         <a class="nav-link" href="{{url('/about-us')}}">About Us</a>
       </li>
       <li class="nav-item {{ request()->is('contact-us') ? 'active' : '' }}">
-        <a class="nav-link disabled">Contact Us</a>
+        <a class="nav-link" href="{{url('/contact-us')}}">Contact Us</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link disabled">Blogs</a>
+      <li class="nav-item {{ request()->is('blogs') ? 'active' : '' }}">
+        <a class="nav-link" href="{{url('/blog')}}">Blogs</a>
       </li>
       <li class="nav-item">
         <a class="nav-link disabled">Disabled</a>

@@ -22,7 +22,7 @@
 
 <div class="content">
 
-<div class="toast" style="position: absolute; top: 5px; right: 5px;" data-delay="2000">
+<div class="toast" style="position: fixed; top: 5px; right: 5px;" data-delay="2000">
     <div class="toast-header bg-success text-light">
       <strong class="mr-auto">Success</strong>
       <button type="button" class="ml-2 mb-1 close text-light" data-dismiss="toast" aria-label="Close">
@@ -58,8 +58,8 @@
                 
                     <label for="status">Status</label>
                     <select class="form-control" name="status">
+                    <option value="public">Public</option>
                         <option value="private">Private</option>
-                        <option value="public">Public</option>
                     </select>
                 </div>
 

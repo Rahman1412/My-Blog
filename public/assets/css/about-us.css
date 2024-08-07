@@ -1,0 +1,13 @@
+.banner{
+    background-image: url(../../logo/background.jpg);
+    background-size: contain;
+    background-position: center;
+}
+
+.banner-title{
+    font-weight: bold;
+    font-size: 45px;
+    text-align: center;
+    color: white;
+    padding: 50px;
+}
